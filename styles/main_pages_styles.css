@@ -1,0 +1,321 @@
+/****
+**This file contains the CSS for the main pages such as the view_ride_offers page
+****/
+
+body {
+    color: #526066;
+    margin: 0;
+    padding: 0;
+    background: rgba(255,255,255,0.4);
+}
+
+h2, h3 {
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+/**/
+/*
+* -- HEADER --
+* Styles the heading at the top of the page.
+*/
+.heading-container {
+    background: transparent url("../img/car1.jpg") 0 0 no-repeat fixed;
+    text-align: center;
+    background-size: cover;
+    height: 200px;
+    width: 100%;
+    margin-bottom: 3em;
+    display: table;
+}
+
+.heading {
+    display: table-cell;
+    vertical-align: middle;
+    margin-bottom: 0;
+    font-family: Algerian, sans-serif;
+    color: #d70040;
+    font-size: 2em;
+    border-radius: 5px;
+    line-height: 1em;
+    font-weight: 200;
+    text-shadow: 0 1px 1px black;
+}
+
+.sub-heading {
+    display: table-row;
+    vertical-align: middle;
+    margin-bottom: 0;
+    font-size: 1.5em;
+    color: rgba(255,255,255,1);
+    font-weight: 500;
+    text-shadow: 0 1px 1px black;
+}
+
+
+/*
+* -- GRID --
+This is the grid that contains the details about the rides
+*/
+.grid-container {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    padding: 10px;
+    grid-gap: 10px 10px;
+}
+
+.grid-item {
+    padding: 20px;
+    font-size: 10px;
+    text-align: center;
+    width: 80%;
+}
+
+.ride-offer-details {
+    border: 1px solid #ddd;
+    margin: 0 0.5em 2em;
+    padding: 0 0 3em;
+}
+
+.ride-offer-header {
+    background: #519251;
+    color: #fff;
+}
+.ride-offer-header h2 {
+    margin: 0;
+    padding-top: 2em;
+    font-size: 1em;
+    font-weight: normal;
+
+}
+
+.city-name {
+    font-size: 300%;
+    margin: 0.2em 0 0;
+    font-weight: 100;
+}
+.city-name span {
+    display: block;
+    text-transform: uppercase;
+    font-size: 40%;
+    padding-bottom: 2em;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.5);
+    *color: #fff;
+}
+
+/*
+*--RIDE DETAILS LIST--
+*/
+.details-list {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+.details-list li {
+    padding: 0.8em 0;
+    background: #f7f7f7;
+    font-size: x-large;
+    border-bottom: 1px solid #e7e7e7;
+}
+
+/*
+* --RIDE REQUESTS--
+* Ride requests look a little different from ride offers
+*/
+.ride-request-details {
+    background: rgba(205,215,201,0.71);
+    border: 1px solid #ddd;
+    margin: 0 0.5em 2em;
+    padding: 0 0 3em;
+}
+
+.requester-name {
+    text-decoration: none;
+    font-size: 200%;
+    color: rgba(215,0,64,0.71);
+    font-weight: 400;
+}
+
+.profile-container {
+    background-color: white;
+    text-align: center;
+    horiz-align: center;
+}
+
+/*--Buttons--
+*/
+.offer-button {
+    text-align: center;
+    margin-bottom: 3em;
+    margin-top: 3em;
+    font-size: 100%;
+}
+a.button {
+    background: rgba(0,0,0,0.2);
+    color: #d70040;
+    border-radius: 5px;
+    font-size: 100%;
+    padding: 0.5em 2em;
+    left: 50%;
+    margin-right: 30px;
+    margin-left: 30px;
+    width: 100%;
+    height: 100%;
+    text-decoration: none;
+}
+
+a.button-choose, a.button-head {
+    color: #d70040;
+    font-size: 150%;
+    border-radius: 5px;
+    padding: 0.5em 2em;
+    text-decoration: none;
+}
+
+a.button-head {
+    background: rgba(255,255,255,0.62);
+}
+
+a.button-choose {
+    background: rgba(0,0,0,0.2);
+}
+
+a.button:hover, a.button-choose:hover, a.heading-button:hover {
+    background-color: rgba(0,0,0,0.3);
+}
+
+.heading-button {
+    display: table-row;
+    text-align: left;
+    vertical-align: middle;
+    text-transform: capitalize;
+}
+
+a.button-head {
+    padding: 0.2% 2%;
+}
+
+.accept-button {
+    background-color: rgba(125,243,88,0.2);
+    color: #d70040;
+    opacity: 0.62;
+    font-size: 150%;
+    border-radius: 5px;
+    padding: 0.5em 2em;
+    text-decoration: none;
+}
+
+.reject-button {
+    background-color: rgba(243,6,27,0.2);
+    color: #d70040;
+    opacity: 0.62;
+    font-size: 150%;
+    border-radius: 5px;
+    padding: 0.5em 2em;
+    text-decoration: none;
+}
+
+
+/*
+* --FORMS--
+*For pages with forms
+*/
+.form-container {
+    margin-top: 0;
+    height: 445px;
+}
+
+.form-container .form {
+    width: 80%;
+    height: 100%;
+    margin: auto;
+    background: rgba(0,0,0,0.18);
+    opacity: 1;
+    text-align: center;
+    text-transform: uppercase;
+    font-size: medium;
+}
+
+.form-page .heading-container {
+    margin-bottom: 0;
+    height: 200px;
+}
+
+label {
+    display: inline-block;
+    width: 140px;
+    text-align: right;
+}
+
+.ride-offer-form {
+    padding: 5%;
+}
+
+/*
+Make the page responsive (I'm not yet sure what to do about the buttons)
+*/
+
+/*
+*Slightly adjust heading size and add vertical space between ride-offers.
+*/
+@media(min-width: 767px) {
+
+    .heading {
+        font-size: 4em;
+    }
+    .ride-offer-details {
+        margin-bottom: 0;
+    }
+
+}
+
+/*
+* On larger devices, increase the heading height and font-size.
+*/
+@media (min-width: 480px) {
+    .heading-container {
+        height: 400px;
+    }
+    .heading {
+        font-size: 4em;
+    }
+}
+
+/*
+* Prevent buttons from overlapping on smaller devices
+*/
+@media (max-width: 480px) {
+    .offer-button {
+        margin-top: 1em;
+        margin-bottom: 1em;
+    }
+
+    a.button {
+        font-size: 50%;
+        margin-right: 5px;
+        margin-left: 5px;
+    }
+
+    .grid-container {
+        grid-template-columns: auto;
+    }
+
+    .grid-container {
+        grid-template-columns: auto;
+    }
+
+    .accept-button, .reject-button {
+        font-size: 100%;
+    }
+
+    .requester-name {
+        font-size: 150%;
+    }
+
+    .ride-request-header {
+        font-size: 80%;
+    }
+}
