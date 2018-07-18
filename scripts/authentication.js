@@ -1,3 +1,8 @@
+/**
+ * This file contains the code for consuming the authentication api endpoints
+ * and powering the login and sign up api endpoints.
+ */
+
 // This function handles all the fetching from the API and returns the json response
 function fetchAPI(url, method, headers, body, action) {
     if (!('fetch' in window)) {
@@ -27,36 +32,56 @@ let headers = new Headers({
 });
 
 let login = function () {
+    let loading = dots("Logging in");
     let url = 'https://ridemywayapidb.herokuapp.com/ridemyway/api/v1/auth/login';
+    let form = document.getElementById("login");
+    let data = {
+        "username": form.elements[0].value,
+        "password": form.elements[1].value
+    };
 
-    let creds = JSON.stringify({"username": "Isaac", "password": "python"});
+    //Action to perform after sending the request
     let action = function (json) {
+        window.clearInterval(loading);
         if (json['access_token']) {
+            window.location.replace('view_ride_offers.html');
             localStorage.setItem('token', json['access_token']);
         }
         else {
-            //Add code to give notification
+            let reply = json['message'];
+            let error = "Failed to login!";
+            if (reply === 'User account does not exist')
+                error = error + " " + reply + ". " + "Please sign up.";
+            else if (reply === 'Invalid user credentials')
+                error = error + " " + reply + ". " + "Please enter the correct password and username";
+
+            let message = document.getElementById('error_message');
+            message.style.color = 'red';
+            message.style.fontSize = '70%';
+            message.innerHTML = error;
         }
         console.log(json);
     };
 
-    fetchAPI(url, 'POST', headers, creds, action);
-    testToken();
+    let val = validate(data);
+
+    if (!val[0]) {
+        window.clearInterval(loading);
+        let message = document.getElementById('error_message');
+        message.style.color = "red";
+        message.style.fontSize = "60%";
+        message.innerHTML = "Error: " + val[1];
+    }
+    else {
+        data = JSON.stringify(data);
+        fetchAPI(url, 'POST', headers, data, action);
+    }
 };
 
 let sign_up = function () {
     console.log("Entering function");
     // Show dots while sign up operation is taking place
-    let message = document.getElementById('error_message');
-    message.style.color = "orange";
-    message.style.fontSize = "70%";
-    message.innerHTML = "Signing up ";
-    let loading = window.setInterval(function() {
-        if (message.innerHTML.length > 13)
-            message.innerHTML = "Signing up ";
-        else
-            message.innerHTML += '.';
-    }, 500);
+    let loading = dots("Signing up");
 
     let url = 'https://ridemywayapidb.herokuapp.com/ridemyway/api/v1/auth/signup';
     let form = document.getElementById('signup');
@@ -94,6 +119,7 @@ let sign_up = function () {
     let val = validate(data);
     if (!val[0]) {
         window.clearInterval(loading);
+        let message = document.getElementById("error_message");
         message.style.color = "red";
         message.style.fontSize = "60%";
         message.innerHTML = "Error: " + val[1];
@@ -104,6 +130,7 @@ let sign_up = function () {
     }
 };
 
+//Validating user input
 let validate = function (data) {
     //TODO: Also validate email addresses
     if (data["username"].length < 7) {
@@ -123,6 +150,20 @@ let validate = function (data) {
 
     //TODO: Also validate email when I add it to the api
     return [true];
+};
+
+//Show loading dots
+let dots = function (status) {
+    let message = document.getElementById('error_message');
+    message.style.color = "orange";
+    message.style.fontSize = "70%";
+    message.innerHTML = status + " ";
+    return window.setInterval(function() {
+        if (message.innerHTML.length > status.length + 3)
+            message.innerHTML = status + " ";
+        else
+            message.innerHTML += '.';
+    }, 500);
 };
 // let testToken = function () {
 //     console.log("The token is: " + localStorage.getItem('token'));
