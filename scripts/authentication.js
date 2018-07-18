@@ -67,9 +67,6 @@ let sign_up = function () {
         "email": form.elements[2].value
     };
 
-    //TODO: Validate the data and send appropriate message.
-    // TODO: Highlight form fields if it is not right or a required field is missing.
-
     //Action to perform after sending the request
     let action = function (json) {
         window.clearInterval(loading);
@@ -79,11 +76,8 @@ let sign_up = function () {
             message.style.color = 'red';
             message.style.fontSize = '70%';
             message.innerHTML = 'User already exists. Choose a different username or login if it\'s you.';
-            console.log("Damn");
         }
         else {
-            //TODO: Display text prompting user to go to the login page.
-            console.log("Hello");
             let message = "<div class='intro-container'>" +
                 "<div class='intro'>" +
                 "<h1 class=\"intro-heading\">RIDE MY WAY</h1>" +
@@ -97,13 +91,39 @@ let sign_up = function () {
         }
     };
 
-    data = JSON.stringify(data);
-    // action(data);
-    fetchAPI(url, 'POST', headers, data, action);
+    let val = validate(data);
+    if (!val[0]) {
+        window.clearInterval(loading);
+        message.style.color = "red";
+        message.style.fontSize = "60%";
+        message.innerHTML = "Error: " + val[1];
+    }
+    else {
+        data = JSON.stringify(data);
+        fetchAPI(url, 'POST', headers, data, action);
+    }
 };
 
-let testToken = function () {
-    console.log("The token is: " + localStorage.getItem('token'));
+let validate = function (data) {
+    //TODO: Also validate email addresses
+    if (data["username"].length < 7) {
+        let error = "Make sure your username is at least 7 characters";
+        if (data["username"] === "") {
+            error = "Please supply a username";
+        }
+        return [false, error];
+    }
+    else if (data["password"].length < 5) {
+        let error = "Make sure your password is at least 5 characters";
+        if (data["username"] === "") {
+            error = "Please supply a password";
+        }
+        return [false, error];
+    }
+
+    //TODO: Also validate email when I add it to the api
+    return [true];
 };
-
-
+// let testToken = function () {
+//     console.log("The token is: " + localStorage.getItem('token'));
+// };
