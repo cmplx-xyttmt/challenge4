@@ -44,8 +44,8 @@ let login = function () {
     let action = function (json) {
         window.clearInterval(loading);
         if (json['access_token']) {
-            window.location.replace('view_ride_offers.html');
             localStorage.setItem('token', json['access_token']);
+            window.location.replace('view_ride_offers.html');
         }
         else {
             let reply = json['message'];
@@ -100,7 +100,12 @@ let sign_up = function () {
             let message = document.getElementById('error_message');
             message.style.color = 'red';
             message.style.fontSize = '70%';
-            message.innerHTML = 'User already exists. Choose a different username or login if it\'s you.';
+            let err_message;
+            if (json['message'] === "Email in wrong format")
+                err_message = "Enter email in correct format";
+            else
+                err_message = 'User already exists. Choose a different username or login if it\'s you.';
+            message.innerHTML = err_message;
         }
         else {
             let message = "<div class='intro-container'>" +
@@ -132,7 +137,6 @@ let sign_up = function () {
 
 //Validating user input
 let validate = function (data) {
-    //TODO: Also validate email addresses
     if (data["username"].length < 7) {
         let error = "Make sure your username is at least 7 characters";
         if (data["username"] === "") {
@@ -148,7 +152,6 @@ let validate = function (data) {
         return [false, error];
     }
 
-    //TODO: Also validate email when I add it to the api
     return [true];
 };
 
