@@ -168,6 +168,27 @@ let dots = function (status) {
             message.innerHTML += '.';
     }, 500);
 };
-// let testToken = function () {
-//     console.log("The token is: " + localStorage.getItem('token'));
-// };
+
+/**
+ * Executed when the body of the page has loaded.
+ * Sends a request to a protected endpoint and checks for an error message
+ * Redirects to ride offer page if the user is logged in.
+ * TODO: Before displaying the page, show a loading message as the api request is being made
+ * */
+let onload = function () {
+    let token = localStorage.getItem('token');
+    let url = 'https://ridemywayapidb.herokuapp.com/ridemyway/api/v1/rides';
+
+    let action = function (json) {
+        if (json['error']) {
+            return;
+        }
+        window.location.replace('view_ride_offers.html');
+    };
+
+    if (token) {
+        headers.append("Authorization", token);
+        fetchAPI(url, 'GET', headers, null, action);
+        headers.delete("Authorization");
+    }
+};
