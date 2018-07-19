@@ -1,6 +1,6 @@
 /**
  * This file contains the code for consuming the authentication api endpoints
- * and powering the login and sign up api endpoints.
+ * and thus powering the login and sign up pages.
  */
 
 // This function handles all the fetching from the API and returns the json response
@@ -176,11 +176,13 @@ let dots = function (status) {
  * TODO: Before displaying the page, show a loading message as the api request is being made
  * */
 let onload = function () {
+    toggleDisplay(false);
     let token = localStorage.getItem('token');
     let url = 'https://ridemywayapidb.herokuapp.com/ridemyway/api/v1/rides';
 
     let action = function (json) {
         if (json['error']) {
+            toggleDisplay(true);
             return;
         }
         window.location.replace('view_ride_offers.html');
@@ -191,4 +193,24 @@ let onload = function () {
         fetchAPI(url, 'GET', headers, null, action);
         headers.delete("Authorization");
     }
+};
+
+/**
+ * Shows loading while page is making api request and shows landing page if user is not logged in
+ * */
+let toggleDisplay = function (showLanding) {
+    let loading = document.getElementById("loading");
+    let info = document.getElementById("info");
+    let auth_buttons = document.getElementById("auth_buttons");
+    if (showLanding) {
+        loading.style.display = "none";
+        info.style.display = "block";
+        auth_buttons.style.display = "block";
+    }
+    else {
+        loading.style.display = "block";
+        info.style.display = "none";
+        auth_buttons.style.display = "none";
+    }
+
 };
