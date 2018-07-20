@@ -193,6 +193,9 @@ let onload = function () {
         fetchAPI(url, 'GET', headers, null, action);
         headers.delete("Authorization");
     }
+    else {
+        toggleDisplay(true);
+    }
 };
 
 /**
