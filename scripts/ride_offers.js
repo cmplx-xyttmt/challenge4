@@ -73,15 +73,15 @@ let onload = function () {
  * This function consumes the create ride offer api end point
  * */
 let createRide = function () {
-    let url = 'https://ridemywayapidb.herokuapp.com/ridemyway/api/v1/rides';
+    let url = 'https://ridemywayapidb.herokuapp.com/ridemyway/api/v1/users/rides';
     let token = localStorage.getItem('token');
     let loading = dots('Creating ride offer');
 
     let form = document.getElementById('form');
     let data = {
-        'origin': form.elements[0],
-        'destination': form.elements[1],
-        'price': form.elements[2]
+        'origin': form.elements[0].value,
+        'destination': form.elements[1].value,
+        'price': form.elements[2].value
     };
 
     let action = function (json) {
@@ -89,6 +89,7 @@ let createRide = function () {
 
         if (json['error']) {
             window.clearInterval(loading);
+            console.log(json['error']);
             status.style.color = 'red';
             status.innerHTML = 'Failed to create the ride offer';
         }
@@ -101,7 +102,8 @@ let createRide = function () {
 
     if (token) {
         let headers = new Headers({
-           'Authorization': token
+           'Authorization': token,
+            'Content-Type': 'application/json'
         });
 
         fetchAPI(url, 'POST', headers, JSON.stringify(data), action);
