@@ -27,6 +27,29 @@ function fetchAPI(url, method, headers, body, action) {
 }
 
 
+// let onload = function () {
+//
+// };
+
+/**
+ * Shows loading gif (used when determining if user is logged in)
+ * */
+let toggleDisplay = function (showInfo) {
+    let loading = document.getElementById("loading");
+    let heading = document.getElementById("heading");
+    let offerButtons = document.getElementById("offer-buttons");
+    if (showInfo) {
+        loading.style.display = "none";
+        heading.style.display = "block";
+        offerButtons.style.display = "block";
+    }
+    else {
+        loading.style.display = "block";
+        heading.style.display = "none";
+        offerButtons.style.display = "none";
+    }
+};
+
 // This function logs the user out by replacing the token with some random stuff.
 let logout = function () {
     localStorage.setItem('token', 'gfiaiug');
