@@ -19,6 +19,7 @@ function fetchAPI(url, method, headers, body, action) {
             return response.json();
         })
         .catch(function (error) {
+            //TODO: Add action to perform when the request fails.
             console.log("There's a problem: \n" + error);
         })
         .then(function (myJson) {
@@ -26,10 +27,38 @@ function fetchAPI(url, method, headers, body, action) {
         });
 }
 
+/**
+ * This function is run when the page loads.
+ * It makes a request for the rides to the api.
+ * If the user is authorized, it displays the rest of the page.
+ * Otherwise, it redirects to the landing page.
+ * */
+let onload = function () {
+    toggleDisplay(false);
+    let token = localStorage.getItem('token');
+    let url = 'https://ridemywayapidb.herokuapp.com/ridemyway/api/v1/rides';
 
-// let onload = function () {
-//
-// };
+    let action = function (json) {
+        if (json['error']) {
+            window.location.replace('index.html');
+        }
+        else {
+            toggleDisplay(true);
+            //TODO: Add code for populating the page with ride offers
+        }
+    };
+
+    if (token) {
+        let headers = new Headers({
+            'Authorization': token
+        });
+
+        fetchAPI(url, 'GET', headers, null, action);
+    }
+    else {
+        window.location.replace('index.html');
+    }
+};
 
 /**
  * Shows loading gif (used when determining if user is logged in)
@@ -40,11 +69,11 @@ let toggleDisplay = function (showInfo) {
     let offerButtons = document.getElementById("offer-buttons");
     if (showInfo) {
         loading.style.display = "none";
-        heading.style.display = "block";
-        offerButtons.style.display = "block";
+        heading.style.display = "table-row";
+        offerButtons.style.display = "table-row";
     }
     else {
-        loading.style.display = "block";
+        loading.style.display = "table-row";
         heading.style.display = "none";
         offerButtons.style.display = "none";
     }
