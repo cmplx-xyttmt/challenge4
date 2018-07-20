@@ -173,7 +173,6 @@ let dots = function (status) {
  * Executed when the body of the page has loaded.
  * Sends a request to a protected endpoint and checks for an error message
  * Redirects to ride offer page if the user is logged in.
- * TODO: Before displaying the page, show a loading message as the api request is being made
  * */
 let onload = function () {
     toggleDisplay(false);
