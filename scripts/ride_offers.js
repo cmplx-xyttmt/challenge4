@@ -1,5 +1,5 @@
 /**
- * This file contains the code for consuming the ride offers api endpoint
+ * This file contains the code for consuming the ride offers api endpoints
  * and some extra stuff to make the page come to life.
  * */
 
@@ -68,6 +68,62 @@ let onload = function () {
     }
 };
 
+
+/**
+ * This function consumes the create ride offer api end point
+ * */
+let createRide = function () {
+    let url = 'https://ridemywayapidb.herokuapp.com/ridemyway/api/v1/rides';
+    let token = localStorage.getItem('token');
+    let loading = dots('Creating ride offer');
+
+    let form = document.getElementById('form');
+    let data = {
+        'origin': form.elements[0],
+        'destination': form.elements[1],
+        'price': form.elements[2]
+    };
+
+    let action = function (json) {
+        let status = document.getElementById('status');
+
+        if (json['error']) {
+            window.clearInterval(loading);
+            status.style.color = 'red';
+            status.innerHTML = 'Failed to create the ride offer';
+        }
+        else {
+            window.clearInterval(loading);
+            status.style.color = 'green';
+            status.innerHTML = 'Ride offer created successfully';
+        }
+    };
+
+    if (token) {
+        let headers = new Headers({
+           'Authorization': token
+        });
+
+        fetchAPI(url, 'POST', headers, JSON.stringify(data), action);
+    }
+    else {
+        window.location.replace('index.html');
+    }
+};
+
+//Show loading dots
+let dots = function (status) {
+    let message = document.getElementById('status');
+    message.style.color = "orange";
+    // message.style.fontSize = "70%";
+    message.innerHTML = status + " ";
+    return window.setInterval(function() {
+        if (message.innerHTML.length > status.length + 3)
+            message.innerHTML = status + " ";
+        else
+            message.innerHTML += '.';
+    }, 500);
+};
 
 /**
  * Creates the HTML to display the ride

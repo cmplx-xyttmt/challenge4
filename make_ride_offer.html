@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="styles/intro_pages_styles.css">
 </head>
 <body>
+<script type="text/javascript" src="scripts/ride_offers.js"></script>
 <div class="form-page">
     <div class="heading-container">
         <div class="heading-button">
@@ -17,27 +18,27 @@
         <h1 class="heading">
             Ride My Way.
         </h1>
-        <h2 class="sub-heading">Enter your ride offer details</h2>
+        <h2 class="sub-heading" id="status">Enter your ride offer details</h2>
     </div>
     <div class="form-container">
         <div class="form">
-            <form class="ride-offer-form">
-                <label> City name:</label>
-                <input type="text" placeholder="city"/>
-                <br>
+            <form class="ride-offer-form" id="form">
+                <!--<label> City name:</label>-->
+                <!--<input type="text" placeholder="city"/>-->
+                <!--<br>-->
                 <label>Origin:</label>
                 <input type="text" placeholder="origin"/>
                 <br>
                 <label>Destination:</label>
                 <input type="text" placeholder="destination"/>
                 <br>
-                <label>Time:</label>
-                <input type="time" placeholder="time"/>
-                <br>
+                <!--<label>Time:</label>-->
+                <!--<input type="time" placeholder="time"/>-->
+                <!--<br>-->
                 <label>Price:</label>
                 <input type="number" step="500" placeholder="UGX 0"/>
                 <br>
-                <a href="view_ride_offers.html" class="button">submit offer</a>
+                <a href="#" onclick="createRide()" class="button">submit offer</a>
             </form>
         </div>
     </div>
