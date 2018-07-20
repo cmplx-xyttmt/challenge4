@@ -44,7 +44,15 @@ let onload = function () {
         }
         else {
             toggleDisplay(true);
-            //TODO: Add code for populating the page with ride offers
+            let rides = json['rides'];
+            if (rides.length === 0) {
+                document.getElementById('heading').innerHTML = "No ride offers yet";
+            }
+            else {
+                for (let i = 0; i < rides.length; i++) {
+                    createRideHTML(rides[i]['name'], rides[i]['origin'], rides[i]['destination'], rides[i]['price']);
+                }
+            }
         }
     };
 
@@ -58,6 +66,27 @@ let onload = function () {
     else {
         window.location.replace('index.html');
     }
+};
+
+
+/**
+ * Creates the HTML to display the ride
+ * */
+let createRideHTML = function (name, origin, destination, price) {
+    let ridesGrid = document.getElementById("rides");
+    let rideHTML = "<div class='grid-item'><div class='ride-offer-details'>" +
+        "<div class='ride-offer-header'> <h2>RIDE OFFER</h2> " +
+        "<span class='city-name'><span>" + name + "</span></span></div>" +
+        "<ul class='details-list'>" +
+        "<li>Origin: " + origin + "</li>" +
+        "<li>Destination: " + destination + "</li>" +
+        "<li>Price: " + price + "</li>" +
+        "</ul>" +
+        "<div class='offer-button'>" +
+        "<a href='#' class='button-choose'>REQUEST RIDE</a>" +
+        "</div></div></div>";
+
+    ridesGrid.innerHTML = ridesGrid.innerHTML + rideHTML;
 };
 
 /**
