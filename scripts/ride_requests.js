@@ -28,6 +28,45 @@ function fetchAPI(url, method, headers, body, action) {
 }
 
 /**
+ * Run when the view my ride offers page is loaded.
+ * */
+let onloadRideOffers = function () {
+    toggleDisplay(false);
+    let token = localStorage.getItem('token');
+    let url = 'https://ridemywayapidb.herokuapp.com/ridemyway/api/v1/user/rides';
+
+    let action = function (json) {
+        if (json['error']) {
+            window.location.replace('index.html');
+        }
+        else {
+            toggleDisplay(true);
+            let rides = json['rides'];
+            if (rides.length === 0) {
+                document.getElementById('heading').innerHTML = "You haven't created any ride offers yet";
+            }
+            else {
+                for (let i = 0; i < rides.length; i++) {
+                    createRideHTML(rides[i]['name'], rides[i]['origin'],
+                        rides[i]['destination'], rides[i]['price'], rides[i]['id']);
+                }
+            }
+        }
+    };
+
+    if (token) {
+        let headers = new Headers({
+            'Authorization': token
+        });
+
+        fetchAPI(url, 'GET', headers, null, action);
+    }
+    else {
+        window.location.replace('index.html');
+    }
+};
+
+/**
  * Creates the HTML to display the ride
  * */
 let createRideHTML = function (name, origin, destination, price, id) {

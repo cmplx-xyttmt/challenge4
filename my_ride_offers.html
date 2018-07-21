@@ -5,12 +5,13 @@
     <title>My Ride Offers</title>
     <link rel="stylesheet" href="styles/main_pages_styles.css">
 </head>
-<body>
+<body onload="onloadRideOffers()">
+<script type="text/javascript" src="scripts/ride_requests.js"></script>
 <div class="heading-container">
     <div class="heading-button">
         <a href="view_ride_offers.html" class="button-head">home</a>
         <a href="profile.html" class="button-head">profile</a>
-        <a href="index.html" class="button-head">logout</a>
+        <a onclick="logout()" class="button-head">logout</a>
     </div>
     <h1 class="heading">
         Ride My Way.
@@ -18,7 +19,7 @@
     <h2 class="sub-heading">Below are your ride offers. Click on an offer to view requests</h2>
 </div>
 
-<div class="grid-container">
+<div class="grid-container" id="rides">
     <!--This is what each grid item looks like-->
     <!--<div class="grid-item">-->
         <!--<div class="ride-offer-details">-->
