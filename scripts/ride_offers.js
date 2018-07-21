@@ -205,6 +205,7 @@ let RenderDialog = function () {
         dialogBox.style.top = "100px";
         dialogBox.style.display = "block";
         document.getElementById('dialog-box-head').innerHTML = "Confirm";
+        document.getElementById('dialog-box-body').style.color = "white";
         document.getElementById('dialog-box-body').innerHTML = "Are you sure you want to request this ride?";
         document.getElementById('dialog-box-foot').innerHTML = "" +
             "<a class='button-dialog' onclick='dialog.yes(" + rideId + ")'>YES</a>" +
