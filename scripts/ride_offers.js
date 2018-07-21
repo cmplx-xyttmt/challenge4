@@ -50,7 +50,8 @@ let onload = function () {
             }
             else {
                 for (let i = 0; i < rides.length; i++) {
-                    createRideHTML(rides[i]['name'], rides[i]['origin'], rides[i]['destination'], rides[i]['price']);
+                    createRideHTML(rides[i]['name'], rides[i]['origin'],
+                        rides[i]['destination'], rides[i]['price'], rides[i]['id']);
                 }
             }
         }
@@ -130,7 +131,7 @@ let dots = function (status) {
 /**
  * Creates the HTML to display the ride
  * */
-let createRideHTML = function (name, origin, destination, price) {
+let createRideHTML = function (name, origin, destination, price, id) {
     let ridesGrid = document.getElementById("rides");
     let rideHTML = "<div class='grid-item'><div class='ride-offer-details'>" +
         "<div class='ride-offer-header'> <h2>RIDE OFFER</h2> " +
@@ -141,11 +142,45 @@ let createRideHTML = function (name, origin, destination, price) {
         "<li>Price: " + price + "</li>" +
         "</ul>" +
         "<div class='offer-button'>" +
-        "<a href='#' class='button-choose'>REQUEST RIDE</a>" +
+        "<a onclick='dialog.render(" + id + ")' class='button-choose'>REQUEST RIDE</a>" +
         "</div></div></div>";
 
     ridesGrid.innerHTML = ridesGrid.innerHTML + rideHTML;
 };
+
+
+/**
+ * Shows dialog box
+ * */
+let RenderDialog = function () {
+
+    this.render = function (rideId) {
+        let windowWidth = window.innerWidth, windowHeight = window.innerHeight;
+        let dialogOverlay = document.getElementById('dialog-overlay');
+        let dialogBox = document.getElementById('dialog-box');
+        dialogOverlay.style.display = "block";
+        dialogOverlay.style.height = windowHeight + "px";
+        dialogBox.style.left = (windowWidth/2) - (550*0.5) + "px";
+        dialogBox.style.top = "100px";
+        dialogBox.style.display = "block";
+        document.getElementById('dialog-box-head').innerHTML = "Confirm";
+        document.getElementById('dialog-box-body').innerHTML = "Are you sure you want to request this ride?";
+        document.getElementById('dialog-box-foot').innerHTML = "" +
+            "<a class='button-dialog' onclick='dialog.yes(" + rideId + ")'>YES</a>" +
+            "<a class='button-dialog' onclick='dialog.no()'>NO</a>";
+    };
+
+    this.yes = function (rideId) {
+
+    };
+
+    this.no = function () {
+        document.getElementById('dialog-box').style.display = "none";
+        document.getElementById('dialog-overlay').style.display = "none";
+    };
+};
+
+let dialog = new RenderDialog();
 
 /**
  * Shows loading gif (used when determining if user is logged in)
