@@ -76,7 +76,7 @@ let onload = function () {
 let createRide = function () {
     let url = 'https://ridemywayapidb.herokuapp.com/ridemyway/api/v1/users/rides';
     let token = localStorage.getItem('token');
-    let loading = dots('Creating ride offer');
+    let loading = dots('status', 'Creating ride offer');
 
     let form = document.getElementById('form');
     let data = {
@@ -114,9 +114,50 @@ let createRide = function () {
     }
 };
 
+/**
+ * This function consumes the create ride request api endpoint
+ * */
+let createRideRequest = function (rideId) {
+    let url = 'https://ridemywayapidb.herokuapp.com/ridemyway/api/v1/rides/' + rideId + '/requests';
+    console.log(url);
+    let token = localStorage.getItem('token');
+    let loading = dots('dialog-box-body', 'Creating ride request');
+    let buttons = document.getElementById('dialog-box-foot');
+    buttons.innerHTML = "";
+
+    let action = function (json) {
+        window.clearInterval(loading);
+        console.log(json);
+        let status = document.getElementById('dialog-box-body');
+        buttons.innerHTML = "<a class='button-dialog' onclick='dialog.no()'>OK</a>";
+        if (json['error']) {
+            console.log(json['error']);
+            status.style.color = 'red';
+            status.innerHTML = 'Failed to create the ride offer';
+        }
+        else {
+            status.style.color = 'green';
+            status.innerHTML = 'Ride offer created successfully';
+
+        }
+    };
+
+    if (token) {
+        let headers = new Headers({
+            'Authorization': token
+        });
+
+        console.log('Sending request...');
+        fetchAPI(url, 'POST', headers, null, action);
+    }
+    else {
+        window.location.replace('index.html');
+    }
+};
+
 //Show loading dots
-let dots = function (status) {
-    let message = document.getElementById('status');
+let dots = function (elemId, status) {
+    let message = document.getElementById(elemId);
     message.style.color = "orange";
     // message.style.fontSize = "70%";
     message.innerHTML = status + " ";
@@ -171,7 +212,7 @@ let RenderDialog = function () {
     };
 
     this.yes = function (rideId) {
-
+        createRideRequest(rideId);
     };
 
     this.no = function () {
