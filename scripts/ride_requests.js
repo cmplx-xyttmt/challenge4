@@ -67,6 +67,52 @@ let onloadRideOffers = function () {
 };
 
 /**
+ * This function consumes the view ride requests api endpoint
+ * */
+let loadRequests = function () {
+    toggleDisplay(false);
+    let token = localStorage.getItem('token');
+    let rideId = localStorage.getItem('rideId');
+    let url = 'https://ridemywayapidb.herokuapp.com/ridemyway/api/v1/users/rides/' + rideId + '/requests';
+
+    let action = function (json) {
+        if (json['error']) {
+            window.location.replace('index.html');
+        }
+        else {
+            toggleDisplay(true);
+            let requests = json['ride_requests'];
+            if (requests.length === 0) {
+                document.getElementById('heading').innerHTML = "There are no ride requests yet";
+            }
+            else {
+                for (let i = 0; i < requests.length; i++)
+                    createRequestHTML(requests[i]['name']);
+            }
+        }
+    };
+
+    if (token) {
+        let headers = new Headers({
+            'Authorization': token
+        });
+
+        fetchAPI(url, 'GET', headers, null, action);
+    }
+    else {
+        window.location.replace('index.html');
+    }
+};
+
+/**
+ * This stores the ride id for the offer and loads the request page.
+ * */
+let loadRequestsPage = function (rideId) {
+    localStorage.setItem('rideId', rideId);
+    window.location.replace('ride_requests.html');
+};
+
+/**
  * Creates the HTML to display the ride
  * */
 let createRideHTML = function (name, origin, destination, price, id) {
@@ -80,10 +126,29 @@ let createRideHTML = function (name, origin, destination, price, id) {
         "<li>Price: " + price + "</li>" +
         "</ul>" +
         "<div class='offer-button'>" +
-        "<a onclick='dialog.render(" + id + ")' class='button-choose'>REQUEST RIDE</a>" +
+        "<a onclick='loadRequestsPage(" + id + ")' class='button-choose'>VIEW REQUESTS</a>" +
         "</div></div></div>";
 
     ridesGrid.innerHTML = ridesGrid.innerHTML + rideHTML;
+};
+
+/**
+ * Creates the HTML to display the request
+ * */
+let createRequestHTML = function (name) {
+    let requestsGrid = document.getElementById('requests');
+    requestsGrid.innerHTML +=
+        "<div class='grid-item'>" +
+        "<div class='ride-request-details'>" +
+        "<div class='ride-request-header'>" +
+        "<h2>RIDE REQUEST</h2>" +
+        "<a class='requester-name'>" + name + "</a>" +
+        "</div>" +
+        "<div class='offer-button'>" +
+        "<a class='accept-button'>ACCEPT</a>" +
+        "<a class='reject-button'>REJECT</a>" +
+        "</div>" +
+        "</div></div>";
 };
 
 /**
