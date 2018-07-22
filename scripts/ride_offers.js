@@ -133,11 +133,11 @@ let createRideRequest = function (rideId) {
         if (json['error']) {
             console.log(json['error']);
             status.style.color = 'red';
-            status.innerHTML = 'Failed to create the ride offer';
+            status.innerHTML = 'Failed to create the ride request';
         }
         else {
             status.style.color = 'green';
-            status.innerHTML = 'Ride offer created successfully';
+            status.innerHTML = 'Ride request created successfully';
 
         }
     };
