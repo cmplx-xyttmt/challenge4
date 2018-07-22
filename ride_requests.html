@@ -5,8 +5,9 @@
     <title>Ride Requests</title>
     <link rel="stylesheet" href="styles/main_pages_styles.css">
 </head>
-<body>
+<body onload="loadRequests()">
 <script type="text/javascript" src="scripts/ride_requests.js"></script>
+
 <div class="heading-container">
     <div class="heading-button">
         <a href="view_ride_offers.html" class="button-head">home</a>
@@ -16,7 +17,10 @@
     <h1 class="heading">
         Ride My Way.
     </h1>
-    <h2 class="sub-heading">Ride requests for your ride offer</h2>
+    <h2 class="sub-heading" id="heading">Ride requests for your ride offer</h2>
+    <div id="loading">
+        <img src="img/Eclipse-1s-200px.gif" alt="Loading...">
+    </div>
 </div>
 
 <div class="grid-container" id="requests">
