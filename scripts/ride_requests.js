@@ -110,7 +110,7 @@ let loadRequests = function () {
 let acceptOrReject = function (requestId, decision) {
     let token = localStorage.getItem('token');
     let rideId = localStorage.getItem('rideId');
-    let url = 'https://ridemywayapidb.herokuapp.com/ridemyway/api/v1/users/rides/' + rideId + '/requests' + requestId;
+    let url = 'https://ridemywayapidb.herokuapp.com/ridemyway/api/v1/users/rides/' + rideId + '/requests/' + requestId;
     let data = {
         'decision': decision
     };
@@ -129,6 +129,7 @@ let acceptOrReject = function (requestId, decision) {
         window.clearInterval(loading);
         let status = document.getElementById('dialog-box-body');
         buttons.innerHTML = "<a class='button-dialog' onclick='dialog.no()'>OK</a>";
+        console.log(json);
         if (json['error']) {
             console.log(json['error']);
             status.style.color = 'red';
@@ -255,6 +256,20 @@ let toggleDisplay = function (showInfo) {
         loading.style.display = "table-row";
         heading.style.display = "none";
     }
+};
+
+//Show loading dots
+let dots = function (elemId, status) {
+    let message = document.getElementById(elemId);
+    message.style.color = "orange";
+    // message.style.fontSize = "70%";
+    message.innerHTML = status + " ";
+    return window.setInterval(function() {
+        if (message.innerHTML.length > status.length + 3)
+            message.innerHTML = status + " ";
+        else
+            message.innerHTML += '.';
+    }, 500);
 };
 
 // This function logs the user out by replacing the token with some random stuff.
