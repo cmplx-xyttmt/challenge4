@@ -143,7 +143,8 @@ let acceptOrReject = function (requestId, decision) {
 
     if (token) {
         let headers = new Headers({
-            'Authorization': token
+            'Authorization': token,
+            'Content-Type': 'application/json'
         });
 
         fetchAPI(url, 'PUT', headers, JSON.stringify(data), action);
