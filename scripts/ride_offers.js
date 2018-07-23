@@ -133,7 +133,7 @@ let createRideRequest = function (rideId) {
         if (json['error']) {
             console.log(json['error']);
             status.style.color = 'red';
-            status.innerHTML = 'Failed to create the ride request';
+            status.innerHTML = 'Failed to create the ride request. ' + json['message'];
         }
         else {
             status.style.color = 'green';
