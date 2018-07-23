@@ -87,7 +87,7 @@ let loadRequests = function () {
             }
             else {
                 for (let i = 0; i < requests.length; i++)
-                    createRequestHTML(requests[i]['name']);
+                    createRequestHTML(requests[i]['name'], requests[i]['id']);
             }
         }
     };
@@ -98,6 +98,54 @@ let loadRequests = function () {
         });
 
         fetchAPI(url, 'GET', headers, null, action);
+    }
+    else {
+        window.location.replace('index.html');
+    }
+};
+
+/**
+ * This function consumes the accept/reject api endpoint
+ * */
+let acceptOrReject = function (requestId, decision) {
+    let token = localStorage.getItem('token');
+    let rideId = localStorage.getItem('rideId');
+    let url = 'https://ridemywayapidb.herokuapp.com/ridemyway/api/v1/users/rides/' + rideId + '/requests' + requestId;
+    let data = {
+        'decision': decision
+    };
+
+    let message;
+    if (decision === 'accept')
+        message = 'Accepting';
+    else
+        message = 'Rejecting';
+
+    let loading = dots('dialog-box-body', message);
+    let buttons = document.getElementById('dialog-box-foot');
+    buttons.innerHTML = "";
+
+    let action = function (json) {
+        window.clearInterval(loading);
+        let status = document.getElementById('dialog-box-body');
+        buttons.innerHTML = "<a class='button-dialog' onclick='dialog.no()'>OK</a>";
+        if (json['error']) {
+            console.log(json['error']);
+            status.style.color = 'red';
+            status.innerHTML = 'Failed to ' + decision + " ride request";
+        }
+        else {
+            status.style.color = 'green';
+            status.innerHTML = 'Successful';
+        }
+    };
+
+    if (token) {
+        let headers = new Headers({
+            'Authorization': token
+        });
+
+        fetchAPI(url, 'PUT', headers, JSON.stringify(data), action);
     }
     else {
         window.location.replace('index.html');
@@ -135,8 +183,10 @@ let createRideHTML = function (name, origin, destination, price, id) {
 /**
  * Creates the HTML to display the request
  * */
-let createRequestHTML = function (name) {
+let createRequestHTML = function (name, id) {
     let requestsGrid = document.getElementById('requests');
+    let paramsAccept = id + "," + "1";
+    let paramsReject = id + "," + "0";
     requestsGrid.innerHTML +=
         "<div class='grid-item'>" +
         "<div class='ride-request-details'>" +
@@ -145,8 +195,8 @@ let createRequestHTML = function (name) {
         "<a class='requester-name'>" + name + "</a>" +
         "</div>" +
         "<div class='offer-button'>" +
-        "<a class='accept-button'>ACCEPT</a>" +
-        "<a class='reject-button'>REJECT</a>" +
+        "<a class='accept-button' onclick='dialog.render(" + paramsAccept + ")'>ACCEPT</a>" +
+        "<a class='reject-button' onclick='dialog.render(" + paramsReject + ")'>REJECT</a>" +
         "</div>" +
         "</div></div>";
 };
@@ -156,7 +206,11 @@ let createRequestHTML = function (name) {
 * */
 let RenderDialog = function () {
 
-    this.render = function (rideId) {
+    this.render = function (requestId, decision) {
+        let params = requestId + "," + decision;
+        if (decision === 1) decision = "accept";
+        else decision = "reject";
+
         let windowWidth = window.innerWidth, windowHeight = window.innerHeight;
         let dialogOverlay = document.getElementById('dialog-overlay');
         let dialogBox = document.getElementById('dialog-box');
@@ -167,14 +221,16 @@ let RenderDialog = function () {
         dialogBox.style.display = "block";
         document.getElementById('dialog-box-head').innerHTML = "Confirm";
         document.getElementById('dialog-box-body').style.color = "white";
-        document.getElementById('dialog-box-body').innerHTML = "Are you sure you want to request this ride?";
+        document.getElementById('dialog-box-body').innerHTML = "Are you sure you want to " + decision + " this request?";
         document.getElementById('dialog-box-foot').innerHTML = "" +
-            "<a class='button-dialog' onclick='dialog.yes(" + rideId + ")'>YES</a>" +
+            "<a class='button-dialog' onclick='dialog.yes(" + params + ")'>YES</a>" +
             "<a class='button-dialog' onclick='dialog.no()'>NO</a>";
     };
 
-    this.yes = function (rideId) {
-        createRideRequest(rideId);
+    this.yes = function (requestId, response) {
+        if (response === 1) response = "accept";
+        else response = "reject";
+        acceptOrReject(requestId, response);
     };
 
     this.no = function () {
