@@ -13,9 +13,11 @@ let login = function () {
     let loading = dots("error_message", "Logging in", true);
     let url = 'https://ridemywayapidb.herokuapp.com/ridemyway/api/v1/auth/login';
     let form = document.getElementById("login");
+    let username = form.elements[0].value;
+    let password = form.elements[1].value;
     let data = {
-        "username": form.elements[0].value,
-        "password": form.elements[1].value
+        "username": username,
+        "password": password
     };
 
     //Action to perform after sending the request
@@ -23,6 +25,7 @@ let login = function () {
         window.clearInterval(loading);
         if (json['access_token']) {
             localStorage.setItem('token', json['access_token']);
+            localStorage.setItem('username', username);
             window.location.replace('view_ride_offers.html');
         }
         else {
