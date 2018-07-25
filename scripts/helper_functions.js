@@ -26,6 +26,38 @@ function fetchAPI(url, method, headers, body, action) {
         });
 }
 
+//Function to consume the get user endpoint
+let loadProfile = function () {
+    let username = localStorage.getItem('username');
+    let token = localStorage.getItem('token');
+
+    let url = "https://ridemywayapidb.herokuapp.com/ridemyway/api/v1/user/" + username;
+    profile.render("", "", "");
+
+    let loading = dots('profile-box-body', 'Loading profile ');
+
+    let action = function (json) {
+        window.clearInterval(loading);
+
+        if (json['error']) {
+            let profileMessage = document.getElementById('profile-box-body');
+            profileMessage.innerHTML = 'Failed to load profile';
+        }
+        else {
+            profile.render(json['username'], json['rides_taken'], json['rides_given']);
+        }
+    };
+
+    if (token) {
+        let headers = new Headers({
+            'Authorization': token
+        });
+
+        fetchAPI(url, 'GET', headers, null, action);
+    }
+    else window.location.replace('index.html');
+};
+
 //Render user profile
 function Profile() {
     this.render = function (name, ridesTaken, ridesGiven) {
