@@ -133,20 +133,6 @@ let validate = function (data) {
     return [true];
 };
 
-//Show loading dots
-let dots = function (status) {
-    let message = document.getElementById('error_message');
-    message.style.color = "orange";
-    message.style.fontSize = "70%";
-    message.innerHTML = status + " ";
-    return window.setInterval(function() {
-        if (message.innerHTML.length > status.length + 3)
-            message.innerHTML = status + " ";
-        else
-            message.innerHTML += '.';
-    }, 500);
-};
-
 /**
  * Executed when the body of the page has loaded.
  * Sends a request to a protected endpoint and checks for an error message

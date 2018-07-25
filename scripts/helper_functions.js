@@ -25,3 +25,17 @@ function fetchAPI(url, method, headers, body, action) {
             action(myJson);
         });
 }
+
+//Show loading dots
+let dots = function (status) {
+    let message = document.getElementById('error_message');
+    message.style.color = "orange";
+    message.style.fontSize = "70%";
+    message.innerHTML = status + " ";
+    return window.setInterval(function() {
+        if (message.innerHTML.length > status.length + 3)
+            message.innerHTML = status + " ";
+        else
+            message.innerHTML += '.';
+    }, 500);
+};

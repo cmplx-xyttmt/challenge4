@@ -235,20 +235,6 @@ let toggleDisplay = function (showInfo) {
     }
 };
 
-//Show loading dots
-let dots = function (elemId, status) {
-    let message = document.getElementById(elemId);
-    message.style.color = "orange";
-    // message.style.fontSize = "70%";
-    message.innerHTML = status + " ";
-    return window.setInterval(function() {
-        if (message.innerHTML.length > status.length + 3)
-            message.innerHTML = status + " ";
-        else
-            message.innerHTML += '.';
-    }, 500);
-};
-
 // This function logs the user out by replacing the token with some random stuff.
 let logout = function () {
     localStorage.setItem('token', 'gfiaiug');

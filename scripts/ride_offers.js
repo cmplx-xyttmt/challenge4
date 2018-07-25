@@ -132,20 +132,6 @@ let createRideRequest = function (rideId) {
     }
 };
 
-//Show loading dots
-let dots = function (elemId, status) {
-    let message = document.getElementById(elemId);
-    message.style.color = "orange";
-    // message.style.fontSize = "70%";
-    message.innerHTML = status + " ";
-    return window.setInterval(function() {
-        if (message.innerHTML.length > status.length + 3)
-            message.innerHTML = status + " ";
-        else
-            message.innerHTML += '.';
-    }, 500);
-};
-
 /**
  * Creates the HTML to display the ride
  * */
