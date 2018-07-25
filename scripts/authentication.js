@@ -10,7 +10,7 @@ let headers = new Headers({
 });
 
 let login = function () {
-    let loading = dots("Logging in");
+    let loading = dots("error_message", "Logging in", true);
     let url = 'https://ridemywayapidb.herokuapp.com/ridemyway/api/v1/auth/login';
     let form = document.getElementById("login");
     let data = {
@@ -59,7 +59,7 @@ let login = function () {
 let sign_up = function () {
     console.log("Entering function");
     // Show dots while sign up operation is taking place
-    let loading = dots("Signing up");
+    let loading = dots("error_message", "Signing up", true);
 
     let url = 'https://ridemywayapidb.herokuapp.com/ridemyway/api/v1/auth/signup';
     let form = document.getElementById('signup');

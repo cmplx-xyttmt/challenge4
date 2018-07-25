@@ -85,10 +85,10 @@ function Profile() {
 let profile = new Profile();
 
 //Show loading dots
-let dots = function (elemId, status) {
+let dots = function (elemId, status, changeSize) {
     let message = document.getElementById(elemId);
     message.style.color = "orange";
-    message.style.fontSize = "70%";
+    if (changeSize) message.style.fontSize = "70%";
     message.innerHTML = status + " ";
     return window.setInterval(function() {
         if (message.innerHTML.length > status.length + 3)
