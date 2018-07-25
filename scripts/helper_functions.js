@@ -26,6 +26,32 @@ function fetchAPI(url, method, headers, body, action) {
         });
 }
 
+//Render user profile
+function Profile() {
+    this.render = function (name, ridesTaken, ridesGiven) {
+        let winW = window.innerWidth;
+        let winH = window.innerHeight;
+        let dialogOverlay = document.getElementById('dialog-overlay');
+        let profileBox = document.getElementById('profile-box');
+        dialogOverlay.style.display = "block";
+        dialogOverlay.style.height = winH + "px";
+        profileBox.style.left = (winW/2) - (550*.5) + "px";
+        profileBox.style.top = "100px";
+        profileBox.style.display = "block";
+        document.getElementById("name").innerHTML = name;
+        document.getElementById("ridesTaken").innerHTML = ridesTaken;
+        document.getElementById("ridesGiven").innerHTML = ridesGiven;
+        document.getElementById('profile-box-foot').innerHTML = '<a class="button" onclick="profile.ok()">CLOSE</a>';
+    };
+
+    this.ok = function () {
+        document.getElementById('profile-box').style.display = "none";
+        document.getElementById('dialog-overlay').style.display = "none";
+    }
+}
+
+let profile = new Profile();
+
 //Show loading dots
 let dots = function (elemId, status) {
     let message = document.getElementById(elemId);
