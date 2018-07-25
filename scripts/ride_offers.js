@@ -3,29 +3,6 @@
  * and some extra stuff to make the page come to life.
  * */
 
-// This function handles all the fetching from the API and returns the json response
-function fetchAPI(url, method, headers, body, action) {
-    if (!('fetch' in window)) {
-        console.log('Fetch API not found');
-        return;
-    }
-
-    fetch(url,{
-        method: method,
-        headers: headers,
-        body: body
-    })
-        .then(function (response) {
-            return response.json();
-        })
-        .catch(function (error) {
-            //TODO: Add action to perform when the request fails.
-            console.log("There's a problem: \n" + error);
-        })
-        .then(function (myJson) {
-            action(myJson);
-        });
-}
 
 /**
  * This function is run when the page loads.

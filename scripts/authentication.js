@@ -3,28 +3,6 @@
  * and thus powering the login and sign up pages.
  */
 
-// This function handles all the fetching from the API and returns the json response
-function fetchAPI(url, method, headers, body, action) {
-    if (!('fetch' in window)) {
-        console.log('Fetch API not found');
-        return;
-    }
-
-    fetch(url,{
-        method: method,
-        headers: headers,
-        body: body
-    })
-        .then(function (response) {
-            return response.json();
-        })
-        .catch(function (error) {
-            console.log("There's a problem: \n" + error);
-        })
-        .then(function (myJson) {
-            action(myJson);
-        });
-}
 
 // Header for the sign-up and login pages
 let headers = new Headers({
