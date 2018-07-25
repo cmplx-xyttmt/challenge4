@@ -1,0 +1,80 @@
+.profile-name {
+    text-align: center;
+}
+
+.profile-details {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+.profile-details li {
+    padding: 0.8em 0;
+    background: black;
+    font-size: x-large;
+    /*color: black;*/
+    border-bottom: 1px solid #000;
+}
+
+#dialog-overlay {
+    display: none;
+    opacity: .8;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: #FFF;
+    width: 100%;
+    z-index: 10;
+}
+
+#profile-box {
+    display: none;
+    position: fixed;
+    background: #000;
+    /*border-radius: 2px;*/
+    width: 550px;
+    z-index: 10;
+}
+
+#profile-box > div {
+    background: #333;
+    margin: 2px;
+}
+
+#profile-box > div > #profile-box-head {
+    /*background: #333;*/
+    font-size: 19px;
+    padding: 10px;
+    color: #CCC;
+}
+
+#profile-box > div > #profile-box-body {
+    /*background: #333;*/
+    padding: 20px;
+    color: #FFF;
+}
+
+#profile-box > div > #profile-box-foot {
+    /*background: #333;*/
+    padding-bottom: 20px;
+    text-align: right;
+}
+
+a.button {
+    background: rgba(255,255,255,0.2);
+    color: #d70040;
+    border-radius: 5px;
+    font-size: 100%;
+    padding: 0.5em 2em;
+    left: 50%;
+    margin-right: 10px;
+    margin-left: 10px;
+    width: 100%;
+    height: 100%;
+    text-decoration: none;
+}
+
+a.button:hover, a.button-choose:hover, a.heading-button:hover {
+    background-color: rgba(0,0,0,0.3);
+}
