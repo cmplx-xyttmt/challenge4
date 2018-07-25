@@ -73,7 +73,7 @@ function Profile() {
         document.getElementById("name").innerHTML = name;
         document.getElementById("ridesTaken").innerHTML = ridesTaken;
         document.getElementById("ridesGiven").innerHTML = ridesGiven;
-        document.getElementById('profile-box-foot').innerHTML = '<a class="button" onclick="profile.ok()">CLOSE</a>';
+        document.getElementById('profile-box-foot').innerHTML = '<a class="button-dialog" onclick="profile.ok()">CLOSE</a>';
     };
 
     this.ok = function () {
