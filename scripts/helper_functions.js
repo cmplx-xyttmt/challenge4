@@ -44,7 +44,7 @@ let loadProfile = function () {
             profileMessage.innerHTML = 'Failed to load profile';
         }
         else {
-            profile.render(json['username'], json['rides_taken'], json['rides_given']);
+            profile.render(json['username'], json['rides_taken'], json['ride_given']);
         }
     };
 
@@ -65,6 +65,13 @@ function Profile() {
         let winH = window.innerHeight;
         let dialogOverlay = document.getElementById('dialog-overlay');
         let profileBox = document.getElementById('profile-box');
+        let profileBody = document.getElementById('profile-box-body');
+        profileBody.innerHTML = '' +
+            '<ul class="profile-details">' +
+            '<li>Rides Taken: <span id="ridesTaken"></span></li>' +
+            '<li>Rides Given: <span id="ridesGiven"></span></li>' +
+            '</ul>';
+
         dialogOverlay.style.display = "block";
         dialogOverlay.style.height = winH + "px";
         profileBox.style.left = (winW/2) - (550*.5) + "px";
