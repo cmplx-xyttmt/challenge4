@@ -205,9 +205,3 @@ let toggleDisplay = function (showInfo) {
         offerButtons.style.display = "none";
     }
 };
-
-// This function logs the user out by replacing the token with some random stuff.
-let logout = function () {
-    localStorage.setItem('token', 'gfiaiug');
-    window.location.replace('index.html');
-};
