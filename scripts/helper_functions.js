@@ -27,8 +27,8 @@ function fetchAPI(url, method, headers, body, action) {
 }
 
 //Show loading dots
-let dots = function (status) {
-    let message = document.getElementById('error_message');
+let dots = function (elemId, status) {
+    let message = document.getElementById(elemId);
     message.style.color = "orange";
     message.style.fontSize = "70%";
     message.innerHTML = status + " ";
