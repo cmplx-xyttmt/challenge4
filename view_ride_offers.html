@@ -33,14 +33,16 @@
         <div id="profile-box-foot"></div>
     </div>
 </div>
+<div class="navbar">
+    <a href="view_ride_offers.html">HOME</a>
+    <a href="make_ride_offer.html">MAKE RIDE OFFER</a>
+    <a href="my_ride_offers.html">MY RIDE OFFERS</a>
+    <a href="#" onclick="loadProfile()">PROFILE</a>
+    <a href="#" onclick="logout()">LOGOUT</a>
+</div>
 <script type="text/javascript" src="scripts/ride_offers.js"></script>
 <script type="text/javascript" src="scripts/helper_functions.js"></script>
 <div class="heading-container">
-    <div class="heading-button">
-        <a href="view_ride_offers.html" class="button-head">home</a>
-        <a href="#" onclick="loadProfile()" class="button-head">profile</a>
-        <a href="#" onclick="logout()" class="button-head">logout</a>
-    </div>
     <h1 class="heading">
         Ride My Way.
     </h1>
@@ -48,11 +50,6 @@
     <div id="loading">
         <img src="img/Eclipse-1s-200px.gif" alt="Loading...">
     </div>
-</div>
-
-<div class="offer-button" id="offer-buttons">
-    <a href="make_ride_offer.html" class="button">MAKE A RIDE OFFER</a>
-    <a href="my_ride_offers.html" class="button">VIEW MY RIDE OFFERS</a>
 </div>
 
 <div class="grid-container" id="rides">
