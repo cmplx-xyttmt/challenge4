@@ -105,8 +105,9 @@ let dots = function (elemId, status, changeSize) {
     }, 500);
 };
 
-// This function logs the user out by replacing the token with some random stuff.
+// This function logs the user out by removing the username and token from local storage.
 let logout = function () {
-    localStorage.setItem('token', 'gfiaiug');
+    localStorage.removeItem('token');
+    localStorage.removeItem('username');
     window.location.replace('index.html');
 };
