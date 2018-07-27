@@ -193,15 +193,12 @@ let dialog = new RenderDialog();
 let toggleDisplay = function (showInfo) {
     let loading = document.getElementById("loading");
     let heading = document.getElementById("heading");
-    let offerButtons = document.getElementById("offer-buttons");
     if (showInfo) {
         loading.style.display = "none";
         heading.style.display = "table-row";
-        offerButtons.style.display = "block";
     }
     else {
         loading.style.display = "table-row";
         heading.style.display = "none";
-        offerButtons.style.display = "none";
     }
 };
