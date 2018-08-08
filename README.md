@@ -20,7 +20,7 @@ You can interact with the site at [Ride my way front end](https://cmplx-xyttmt.g
 
 # Tools used
 - Languages: HTML, CSS and Javascript
-- IDE: [Jet Brains PhpStorm](https://www.jetbrains.com/phpstorm/)
+- IDE: [Jet Brains Web Storm](https://www.jetbrains.com/webstorm/)
 - [Git](https://git-scm.com/) for version control
 - [Github pages](https://pages.github.com/) for hosting
 
